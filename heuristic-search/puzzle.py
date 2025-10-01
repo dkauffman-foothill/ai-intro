@@ -19,7 +19,7 @@ def is_solution(tiles: tuple[int], path: str) -> bool:
 
 class State:
 
-    _MOVES = "←↑↓→"
+    _MOVES = "←↓↑→"
 
     def __init__(self, tiles: tuple[int, ...], path: str) -> None:
         self.tiles = tuple(tiles)
