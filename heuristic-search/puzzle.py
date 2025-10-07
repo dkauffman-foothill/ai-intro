@@ -1,3 +1,5 @@
+import random
+
 import heuristic
 
 
@@ -20,6 +22,14 @@ def is_solution(tiles: tuple[int], path: str) -> bool:
 class State:
 
     _MOVES = "←↓↑→"
+
+    @staticmethod
+    def randomize(size: int) -> "State":
+        state = None
+        while not (state and state.is_solvable()):
+            tiles = tuple(random.sample(range(size ** 2), size ** 2))
+            state = State(tiles, "")
+        return state
 
     def __init__(self, tiles: tuple[int, ...], path: str) -> None:
         self.tiles = tuple(tiles)
