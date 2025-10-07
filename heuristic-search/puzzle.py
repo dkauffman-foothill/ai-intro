@@ -34,8 +34,10 @@ class State:
     def __init__(self, tiles: tuple[int, ...], path: str) -> None:
         self.tiles = tuple(tiles)
         self.path = path
-        self.h = heuristic.Heuristic.get(tiles)
         self._size = int(len(tiles) ** 0.5)
+        self.lc = heuristic.Heuristic.get_linear_conflicts(tiles, self._size)
+        self._md = heuristic.Heuristic.get_manhattan_distance(tiles, self._size)
+        self.h = self._md + self.lc
         self._cost = len(self.path) + self.h
 
     def __lt__(self, other) -> bool:

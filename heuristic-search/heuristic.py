@@ -15,11 +15,11 @@ class Heuristic:
         6
         """
         width = int(len(tiles) ** 0.5)
-        return (Heuristic._get_manhattan_distance(tiles, width)
-                + Heuristic._get_linear_conflicts(tiles, width))
+        return (Heuristic.get_manhattan_distance(tiles, width)
+                + Heuristic.get_linear_conflicts(tiles, width))
 
     @staticmethod
-    def _get_linear_conflicts(tiles: tuple[int, ...], width: int) -> int:
+    def get_linear_conflicts(tiles: tuple[int, ...], width: int) -> int:
         """
         Return the number of linear conflicts in the tiles, which represents
         the minimum number of tiles in each row and column that must leave and
@@ -63,7 +63,7 @@ class Heuristic:
         return True
 
     @staticmethod
-    def _get_manhattan_distance(tiles: tuple[int, ...], width: int) -> int:
+    def get_manhattan_distance(tiles: tuple[int, ...], width: int) -> int:
         """
         Return the Manhattan distance of the given tiles, which represents
         how many moves is tile is away from its goal position.
