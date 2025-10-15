@@ -40,6 +40,9 @@ class State:
         self.h = self._md + self.lc
         self._cost = len(self.path) + self.h
 
+    def __eq__(self, other) -> bool:
+        return self.tiles == other.tiles and len(self.path) == len(other.path)
+
     def __lt__(self, other) -> bool:
         return self._cost < other._cost
 
