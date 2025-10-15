@@ -43,6 +43,9 @@ class State:
     def __lt__(self, other) -> bool:
         return self._cost < other._cost
 
+    def __hash__(self) -> int:
+        return hash((self.tiles, len(self.path)))
+
     def create_new_states(self) -> list["State"]:
         states = []
         for move in State._MOVES:
