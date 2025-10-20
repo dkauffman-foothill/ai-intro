@@ -29,13 +29,17 @@ class ProgramString:
         )
 
     @staticmethod
-    def _create(max_len: int):
-        if max_len > 0:
-            min_len = 8  # +>[+<->] min len of program to use iter
-            size = random.randrange(min_len, max_len)
-        else:
-            size = random.randrange(1, 50)
-        sequence = "".join(random.choices("<>+-", k=size))
+    def _create(max_len: int, size: int, with_halt: bool) -> "ProgramString":
+        commands = "<>+-"
+        if with_halt:
+            commands += "!"
+        if size == 0:
+            if max_len > 0:
+                min_len = 8  # +>[+<->] min len of program to use iter
+                size = random.randrange(min_len, max_len)
+            else:
+                size = random.randrange(1, 50)
+        sequence = "".join(random.choices(commands, k=size))
         if max_len > 0:
             sequence = ProgramString._add_jumps(sequence)
         return sequence
@@ -46,11 +50,16 @@ class ProgramString:
         j = random.randint(i + 4, len(sequence))
         return sequence[:i] + "[" + sequence[i:j] + "]" + sequence[j:]
 
-    def __init__(self, sequence: str = "", max_len: int = 0) -> "ProgramString":
+    def __init__(self,
+        sequence: str = "",
+        max_len: int = 0,
+        size: int = 0,
+        with_halt: bool = False
+    ) -> "ProgramString":
         if sequence:
             self.sequence = sequence
         else:
-            self.sequence = ProgramString._create(max_len)
+            self.sequence = ProgramString._create(max_len, size, with_halt)
         self.score = -1
 
     def mutate(self, probas: dict[str, float] = {}) -> None:

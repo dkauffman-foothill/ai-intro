@@ -10,7 +10,7 @@ def interpret(program: str, size: int, max_steps = 1000) -> tuple[int, ...]:
     count = 0
     i_map = _preprocess(program)
     memory = [0] * size
-    while p_ptr < len(program):
+    while p_ptr < len(program) and program[p_ptr] != "!" and count <= max_steps:
         if program[p_ptr] == "[":
             if memory[a_ptr] == 0:
                 p_ptr = i_map[p_ptr]
@@ -31,8 +31,6 @@ def interpret(program: str, size: int, max_steps = 1000) -> tuple[int, ...]:
             raise RuntimeError
         p_ptr += 1
         count += 1
-        if count > max_steps:
-            raise RuntimeError
     return tuple(memory)
 
 
