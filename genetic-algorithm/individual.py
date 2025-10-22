@@ -73,11 +73,11 @@ class ProgramString:
             if self.sequence[i] in "[]":
                 mutated += self.sequence[i]
             else:
-                if r_val > probas.get("delete", 0.5):
+                if r_val < probas.get("delete", 0.5):
                     pass
-                elif r_val > probas.get("insert", 0.5):
+                elif r_val < probas.get("insert", 0.5):
                     mutated += self.sequence[i] + random.choice("<>+-")
-                elif r_val > probas.get("change", 0.5):
+                elif r_val < probas.get("change", 0.5):
                     options = "<>+-".replace(self.sequence[i], "")
                     mutated += random.choice(options)
                 else:
