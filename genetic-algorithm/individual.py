@@ -62,7 +62,7 @@ class ProgramString:
             self.sequence = ProgramString._create(max_len, size, with_halt)
         self.score = -1
 
-    def mutate(self, probas: dict[str, float] = {}) -> None:
+    def mutate(self, probas: dict[str, float] = {}, each_iter=False) -> None:
         if len(set(probas.keys()) - set(("insert", "change", "delete"))) > 0:
             raise KeyError("Mutation can only be insert, change, or delete.")
         mutated = ""
@@ -70,6 +70,8 @@ class ProgramString:
         if self.sequence == "" and r_val > 0.2:
             return random.choice("<>+-")
         for i in range(len(self.sequence)):
+            if each_iter:
+                r_val = random.random()
             if self.sequence[i] in "[]":
                 mutated += self.sequence[i]
             else:
