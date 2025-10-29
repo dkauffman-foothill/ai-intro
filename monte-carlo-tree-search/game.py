@@ -113,7 +113,7 @@ class BoardState:
         that is a direct child of this node.
         """
         for child in sorted(self.children):
-            ratio = child.wins / child.sims * 100
+            ratio = 0 if not child.sims else child.wins / child.sims * 100
             print(
                 f"[{child.move:>2}]:",
                 f"{child.wins:>4}/{child.sims:>4}",
