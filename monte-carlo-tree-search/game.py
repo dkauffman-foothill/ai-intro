@@ -24,6 +24,10 @@ def play(
             break
         # computer move
         move = mcts(state, sims)
+        if type(move) != int:
+            raise TypeError("Agent move must be an integer.")
+        if move not in state.moves:
+            raise ValueError("Agent move must be an empty board space.")
         if debug:
             state.display_win_ratios()
         print(f"Agent Move: {move}")
