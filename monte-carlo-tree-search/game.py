@@ -19,13 +19,14 @@ def play(
     while state.util is None:
         # human move
         print(state)
-        state = state.get_successor(int(input("Move: ")))
+        state = state.get_successor(int(input("Your Move: ")))
         if state.util is not None:
             break
         # computer move
         move = mcts(state, sims)
         if debug:
             state.display_win_ratios()
+        print(f"Agent Move: {move}")
         state = state.get_successor(move)
     print(state)
     if state.util == 1:
